@@ -1,0 +1,34 @@
+create table Canzoni(
+	Anno numeric not null,
+	Autore varchar,
+	Titolo varchar,
+	primary key (Autore, Titolo)
+);
+
+create table Utente(
+	NomeCognome varchar not null,
+	CF varchar (16),
+	NomeUtente varchar (30),
+	Indirizzo varchar not null,
+	Email varchar not null,
+	PW varchar not null,
+	primary key (NomeUtente)
+);
+
+create table Emozione(
+	Emozione varchar (30),
+	Utente varchar (30) references Utente(NomeUtente),
+	AutoreBrano varchar,
+	TitoloBrano varchar,
+	primary key(Emozione, Utente, AutoreBrano, TitoloBrano),
+	foreign key (AutoreBrano, TitoloBrano) references Canzoni(Autore, Titolo)
+);
+
+create table Playlist(
+	NomePlaylist varchar(30),
+	AutorePlaylist varchar(30) references Utente(NomeUtente),
+	AutoreBrano varchar,
+	TitoloBrano varchar,
+	primary key(NomePlaylist, AutorePlaylist, AutoreBrano, TitoloBrano),
+	foreign key(AutoreBrano, TitoloBrano) references Canzoni(Autore, Titolo)
+);
